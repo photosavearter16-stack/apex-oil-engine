@@ -9,34 +9,58 @@ All colors MUST be HSL.
 @layer base {
   :root {
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 225 15% 20%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 225 15% 20%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 225 15% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Industrial Deep Blue */
+    --primary: 219 83% 20%;
+    --primary-foreground: 0 0% 100%;
+    --primary-hover: 219 83% 15%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Steel Gray */
+    --secondary: 215 25% 45%;
+    --secondary-foreground: 0 0% 100%;
+    --secondary-light: 215 20% 75%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 13% 95%;
+    --muted-foreground: 215 25% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 220 13% 95%;
+    --accent-foreground: 225 15% 20%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 219 83% 20%;
 
-    --radius: 0.5rem;
+    --radius: 0.375rem;
+
+    /* Industrial Color Palette */
+    --industrial-blue: 219 83% 20%;
+    --industrial-blue-light: 219 83% 35%;
+    --steel-gray: 215 25% 45%;
+    --steel-gray-light: 215 20% 75%;
+    --steel-gray-dark: 215 25% 25%;
+    --engineering-orange: 25 95% 53%;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--industrial-blue)), hsl(var(--industrial-blue-light)));
+    --gradient-section: linear-gradient(180deg, hsl(var(--background)), hsl(var(--muted)));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 20px -2px hsl(var(--industrial-blue) / 0.1);
+    --shadow-hero: 0 25px 50px -12px hsl(var(--industrial-blue) / 0.3);
+    
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +124,80 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer components {
+  /* Industrial Button Variants */
+  .btn-hero {
+    @apply bg-gradient-to-r from-[hsl(var(--industrial-blue))] to-[hsl(var(--industrial-blue-light))] text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-[var(--shadow-hero)] hover:scale-105 hover:-translate-y-1;
+  }
+  
+  .btn-secondary {
+    @apply bg-[hsl(var(--steel-gray))] text-white px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-[hsl(var(--steel-gray-dark))] hover:scale-105;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-[hsl(var(--industrial-blue))] text-[hsl(var(--industrial-blue))] px-6 py-3 rounded-lg font-medium transition-all duration-300 hover:bg-[hsl(var(--industrial-blue))] hover:text-white hover:scale-105;
+  }
+
+  /* Section Styles */
+  .section-padding {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+  
+  .container-max {
+    @apply max-w-7xl mx-auto;
+  }
+  
+  .hero-gradient {
+    @apply bg-gradient-to-br from-[hsl(var(--industrial-blue))] via-[hsl(var(--industrial-blue-light))] to-[hsl(var(--steel-gray))];
+  }
+  
+  .card-industrial {
+    @apply bg-white rounded-xl shadow-[var(--shadow-card)] border border-[hsl(var(--border))] transition-all duration-300 hover:shadow-xl hover:-translate-y-2;
+  }
+
+  /* Animation Classes */
+  .fade-in-up {
+    @apply opacity-0 translate-y-8 transition-all duration-700 ease-out;
+  }
+  
+  .fade-in-up.animate {
+    @apply opacity-100 translate-y-0;
+  }
+  
+  .slide-in-left {
+    @apply opacity-0 -translate-x-8 transition-all duration-700 ease-out;
+  }
+  
+  .slide-in-left.animate {
+    @apply opacity-100 translate-x-0;
+  }
+  
+  .scale-in {
+    @apply opacity-0 scale-95 transition-all duration-500 ease-out;
+  }
+  
+  .scale-in.animate {
+    @apply opacity-100 scale-100;
+  }
+
+  /* Typography */
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold text-[hsl(var(--foreground))] leading-tight;
+  }
+  
+  .heading-lg {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold text-[hsl(var(--foreground))] leading-tight;
+  }
+  
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold text-[hsl(var(--foreground))];
+  }
+  
+  .text-industrial {
+    @apply text-[hsl(var(--steel-gray))] leading-relaxed;
   }
 }
